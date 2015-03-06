@@ -1,0 +1,9 @@
+node_modules
+bower_components
+.DS_Store
+*.map
+*.log
+*.orig
+npm-debug.log
+.dev_profile.js
+*.tgz

@@ -1,0 +1,32 @@
+{
+  "name": "express-intercept",
+  "version": "0.0.1",
+  "description": "A tiny interceptor of responses for Express",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Fabiano P Soriani <fabianosoriani@gmail.com> (https://github.com/flockonus)",
+  "contributors": [
+    {
+      "name": "Fabiano P Soriani",
+      "email": "fabianosoriani@gmail.com",
+      "url": "https://github.com/flockonus"
+    },
+    {
+      "name": "Raul Pino",
+      "email": "pinox101@gmail.com",
+      "url": "https://github.com/p1nox"
+    }
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "morgan": "~1.5.1",
+    "express": "~4.12.2",
+    "jade": "~1.9.2",
+    "debug": "~2.1.2"
+  }
+}
