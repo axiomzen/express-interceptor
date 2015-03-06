@@ -35,25 +35,39 @@ module.exports = function(fn) {
       }
     };
 
+    function afterSend(oldBody, newBody){
+      if(typeof methods.afterSend === 'function'){
+        process.nextTick(function() {
+          debug('methods.afterSend running now, body size: %s %s',oldBody.length, newBody.length);
+          methods.afterSend(oldBody, newBody);
+        });
+      }
+    }
+
     res.end = function(chunk, encoding, cb) {
       debug('end called');
       var args = Array.prototype.slice.call(arguments, 1);
       if( intercept(chunk,encoding) ){
-        res.removeHeader('Content-Length');
         isIntercepting = false;
-        methods.send(chunks.join(''), function(err,newBody) {
-          if(err){
-            return cb && cb(err);
-          }
-          // TODO handle error
-          args[0] = newBody;
-          originalEnd.apply(res,args);
-          process.nextTick(function() {
-            if(typeof methods.afterSend === 'function'){
-              methods.afterSend(newBody);
+        var oldBody = chunks.join('');
+        if (typeof methods.send === 'function'){
+          debug(' methods.send is defined');
+          res.removeHeader('Content-Length');
+          // allow the user to re-write destiny
+          methods.send(oldBody, function(err,newBody) {
+            // debug(' newBody is %s',newBody);
+            if(err){
+              return cb && cb(err);
             }
+            args[0] = newBody;
+            originalEnd.apply(res,args);
+            afterSend(oldBody,newBody);
           });
-        });
+        } else {
+          debug(' methods.send isnt defined');
+          afterSend(oldBody,oldBody);
+          originalEnd.apply(res,args);
+        }
       } else {
         originalEnd.apply(res,args);
       }

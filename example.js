@@ -15,7 +15,7 @@ app.use(interceptRes(function(req,res){
 
     },
     // useful for caching, keeping cache, stats, etc.
-    afterSend: function(body) {
+    afterSend: function(oldBody, newBody) {
 
     }
   };
