@@ -9,7 +9,7 @@
   "scripts": {
     "test": "mocha -R spec --recursive examples"
   },
-  "author": "Fabiano P Soriani <fabianosoriani@gmail.com> (https://github.com/flockonus)",
+  "author": "AxiomZen (https://axiomzen.co)",
   "contributors": [
     {
       "name": "Fabiano P Soriani",
