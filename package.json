@@ -1,15 +1,16 @@
 {
   "name": "express-intercept",
-  "version": "0.0.1",
-  "description": "A tiny interceptor of responses for Express",
+  "version": "0.1.0",
+  "description": "A tiny interceptor for Express responses",
   "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "mocha -R spec --recursive examples"
+    "test": "./node_modules/mocha/bin/mocha -R spec --recursive examples"
   },
   "author": "AxiomZen (https://axiomzen.co)",
+  "keywords": ["express", "expressjs", "middleware", "modify", "response", "hack", "interceptor", "hijack"],
   "contributors": [
     {
       "name": "Fabiano P Soriani",
@@ -27,8 +28,11 @@
     "morgan": "~1.5.1",
     "express": "~4.12.2",
     "jade": "~1.9.2",
-    "debug": "~2.1.2",
     "chai": "~2.1.1",
-    "supertest": "~0.15.0"
+    "supertest": "~0.15.0",
+    "mocha": "~2.1.0"
+  },
+  "dependencies": {
+    "debug": "~2.1.2"
   }
 }

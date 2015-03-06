@@ -61,3 +61,4 @@ This module is new, tests are appreciated. There might be edge cases that need f
 
 Not recommended to intercept and transform big responses.
 
+Activate debug with `DEBUG=express-intercept npm test`
