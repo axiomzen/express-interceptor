@@ -1,5 +1,5 @@
 {
-  "name": "express-intercept",
+  "name": "express-interceptor",
   "version": "0.1.0",
   "description": "A tiny interceptor for Express responses",
   "main": "index.js",

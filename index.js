@@ -1,5 +1,5 @@
 module.exports = function(fn) {
-  var debug = require('debug')('express-intercept');
+  var debug = require('debug')('express-interceptor');
 
   return function(req,res,next){
     var methods = fn(req,res);

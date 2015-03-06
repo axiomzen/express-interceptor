@@ -9,9 +9,13 @@ Some use cases include:
 
 ## API
 
+npm i --save express-interceptor
+
 ```javascript
 
-app.use(interceptRes(function(req,res){
+var interceptor = require('express-interceptor');
+
+app.use(interceptor(function(req,res){
   return {
     // define your custom condition to intercept this response
     //   returning `true` cause to buffer this request, and activate methods below
@@ -61,4 +65,4 @@ This module is new, tests are appreciated. There might be edge cases that need f
 
 Not recommended to intercept and transform big responses.
 
-Activate debug with `DEBUG=express-intercept npm test`
+Activate debug with `DEBUG=express-interceptor npm test`
