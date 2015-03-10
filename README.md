@@ -1,6 +1,10 @@
-[![Build Status](https://travis-ci.org/axiomzen/express-interceptor.svg)](https://travis-ci.org/axiomzen/express-interceptor)
+# express-interceptor
 
-# raison d'etre
+[![NPM](https://nodei.co/npm/express-interceptor.png)](https://nodei.co/npm/express-interceptor/)
+
+[![Build Status](https://travis-ci.org/axiomzen/express-interceptor.svg)](https://travis-ci.org/axiomzen/express-interceptor) [![Dependencies](https://david-dm.org/axiomzen/express-interceptor.png)](https://david-dm.org/axiomzen/express-interceptor.png)
+
+# Raison d'etre
 
 Born out of the need for a reliable, customized and maintenable middleware we need for Sesame CMS.
 
