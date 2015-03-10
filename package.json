@@ -7,10 +7,19 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha -R spec --recursive examples"
+    "test": "./node_modules/mocha/bin/mocha -R spec --recursive tests"
   },
   "author": "AxiomZen (https://axiomzen.co)",
-  "keywords": ["express", "expressjs", "middleware", "modify", "response", "hack", "interceptor", "hijack"],
+  "keywords": [
+    "express",
+    "expressjs",
+    "middleware",
+    "modify",
+    "response",
+    "hack",
+    "interceptor",
+    "hijack"
+  ],
   "contributors": [
     {
       "name": "Fabiano P Soriani",
@@ -37,7 +46,8 @@
     "jade": "~1.9.2",
     "chai": "~2.1.1",
     "supertest": "~0.15.0",
-    "mocha": "~2.1.0"
+    "mocha": "~2.1.0",
+    "cheerio": "~0.18.0"
   },
   "dependencies": {
     "debug": "~2.1.2"

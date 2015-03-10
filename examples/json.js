@@ -1,7 +1,8 @@
 var express = require('express');
-var app = express();
+var app     = express();
 
-var interceptor = require('../..');
+var interceptor = require('../');
+
 app.use(interceptor(function(req,res){
   return {
     initerceptPredicate: function(){
@@ -9,15 +10,12 @@ app.use(interceptor(function(req,res){
     },
     send: function(body, done) {
       res.set('Content-Type', 'application/json');
-      done(null, JSON.stringify({json:body}));
-    },
-    afterSend: function(oldBody,newBody) {
-
+      done(null, JSON.stringify({json: body}));
     }
   };
 }));
 
-app.use(express.static(__dirname + '/../../'));
+app.use(express.static(__dirname + '/../'));
 
 module.exports = app;
 
