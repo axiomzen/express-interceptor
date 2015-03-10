@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/axiomzen/express-interceptor.svg)](https://travis-ci.org/axiomzen/express-interceptor)
+
 # raison d'etre
 
 Born out of the need for a reliable, customized and maintenable middleware we need for Sesame CMS.
