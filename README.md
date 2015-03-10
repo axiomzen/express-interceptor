@@ -4,7 +4,7 @@
 
 [![Build Status](https://travis-ci.org/axiomzen/express-interceptor.svg)](https://travis-ci.org/axiomzen/express-interceptor) [![Dependencies](https://david-dm.org/axiomzen/express-interceptor.png)](https://david-dm.org/axiomzen/express-interceptor.png)
 
-# Raison d'etre
+## Raison d'etre
 
 Born out of the need for a reliable, customized and maintenable middleware we need for Sesame CMS.
 
@@ -46,7 +46,7 @@ app.use(interceptor(function(req,res){
 
 You can find many other examples at [/examples folder](https://github.com/axiomzen/express-interceptor/tree/master/examples) - which also happen to be the tests.
 
-## technicalities
+## Technicalities
 
 Express extends Node.js functionalities, that by default:
 
@@ -57,7 +57,7 @@ Express extends Node.js functionalities, that by default:
 - this package tries to be minimally obtrusive on the way Node or Express works, original `write` and `end` methods hijacked but then at the end.
 
 
-## similar to
+## Similar to
 
 - [tamper](https://www.npmjs.com/package/tamper)
 Similar functionality, with different APIs.
@@ -65,10 +65,14 @@ Similar functionality, with different APIs.
 - [express-hijackresponse](https://github.com/papandreou/express-hijackresponse)
 Have issues with cache, code is hard to maintain.
 
-## words of advice
+## Words of advice
 
 This module is new, tests are appreciated. There might be edge cases that need fix.
 
 Not recommended to intercept and transform big responses.
 
 Activate debug with `DEBUG=express-interceptor npm test`
+
+## License
+
+  [MIT](LICENSE)
