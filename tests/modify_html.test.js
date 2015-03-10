@@ -28,4 +28,15 @@ describe('Expecting only html responses', function() {
       });
   });
 
+  it('should intercept the .json (from a static file) and return it without modification', function(done) {
+    request(app)
+      .get('/index.json')
+      .expect(200)
+      .end(function(err, res) {
+        var indexJson = fs.readFileSync(__dirname + '/../examples/static/index.json');
+        expect(res.text).to.equal(indexJson.toString('utf8'));
+        done(err);
+      });
+  });
+
 });
