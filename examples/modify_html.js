@@ -27,5 +27,4 @@ app.get('/:docId', function(req, res){
   res.render(req.params.docId);
 });
 
-app.listen(3000);
 module.exports = app;
