@@ -11,8 +11,8 @@ describe('Using a template engine (Jade)', function() {
       .get('/index')
       .expect(200)
       .end(function(err, res) {
-        var index = fs.readFileSync(__dirname + '/../examples/static/index.html');
-        expect(res.text).to.equal(index.toString('utf8'));
+        var hack = '<script>alert("you were intercepted!")</script>';
+        expect(res.text).to.contain(hack);
         done(err);
       });
   });

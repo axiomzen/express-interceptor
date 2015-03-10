@@ -9,7 +9,8 @@ app.use(interceptor(function(req, res){
       return true;
     },
     send: function(body, done) {
-      done(null, body);
+      var body2 = body.replace('</body>','<script>alert("you were intercepted!")</script></body>');
+      done(null, body2);
     }
   };
 }));
