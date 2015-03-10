@@ -23,6 +23,13 @@
       "url": "https://github.com/p1nox"
     }
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/axiomzen/express-interceptor"
+  },
+  "bugs": {
+    "url": "https://github.com/axiomzen/express-interceptor/issues"
+  },
   "license": "MIT",
   "devDependencies": {
     "morgan": "~1.5.1",
