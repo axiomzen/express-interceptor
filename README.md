@@ -29,7 +29,7 @@ app.use(interceptor(function(req,res){
     initerceptPredicate: function(){
 
     },
-    // can transform the body, it's a properly encoded String, 
+    // can transform the body, it's a properly encoded String,
     //   done(err, string) param[1] will become the new response
     //   may omit secrets, erase words, append stuff, etc.
     send: function(body, done) {
@@ -72,6 +72,15 @@ This module is new, tests are appreciated. There might be edge cases that need f
 Not recommended to intercept and transform big responses.
 
 Activate debug with `DEBUG=express-interceptor npm test`
+
+## Author
+
+* [AxiomZen](https://www.axiomzen.co/).
+
+## Collaborators
+
+* [Fabiano Soriani](https://github.com/flockonus).
+* [Raul Pino](https://github.com/p1nox).
 
 ## License
 
