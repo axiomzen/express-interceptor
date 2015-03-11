@@ -59,6 +59,14 @@ Here you are defining an interceptor that will be executed whenever the response
 
 You can find other examples at [/examples folder](https://github.com/axiomzen/express-interceptor/tree/master/examples).
 
+## API
+
+* `initerceptPredicate()`: is a predicate function, where you can define a condition to intercept or not the response, returning `true` cause to buffer the request, and proceeds calling `send()`. Tipically you want to check for this condition in the `res` object exposed in the definition of the middleware.
+
+* `send(body, done)`: here you will be able to process the complete response in `body`, which it's a properly encoded String. After you finish what you want to do with it, call `done(err, newBody)` passing `err`, in case there is one, and the `newBody` you want to send back to the client.
+
+* `afterSend(oldBody, newBody)`: this method will be called after sending the response to the client, better to say, after the `done()` callback in the `send()` method gets executed. Typically you could use this method to cache something, log stats, fire a job, etc.
+
 ## Technicalities
 
 Express extends Node.js functionalities, that by default:
@@ -72,11 +80,11 @@ Express extends Node.js functionalities, that by default:
 
 ## Similar to
 
-- [tamper](https://www.npmjs.com/package/tamper)
-Similar functionality, with different APIs.
-
 - [express-hijackresponse](https://github.com/papandreou/express-hijackresponse)
 Have issues with cache, code is hard to maintain.
+
+- [tamper](https://www.npmjs.com/package/tamper)
+Similar functionality, with different APIs.
 
 ## Words of advice
 
