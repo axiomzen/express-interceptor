@@ -61,22 +61,13 @@ You can find other examples at [/examples folder](https://github.com/axiomzen/ex
 
 ## API
 
-* `initerceptPredicate()`: is a predicate function, where you can define a condition to intercept or not the response, returning `true` cause to buffer the request, and proceeds calling `send()`. Tipically you want to check for this condition in the `res` object exposed in the definition of the middleware.
+* * `initerceptPredicate()`: is a predicate function, where you can define a condition to intercept or not the response, returning `true` cause to buffer the request, and proceeds calling `send()`. Tipically you want to check for this condition in the `res` object exposed in the definition of the middleware.
 
-* `send(body, done)`: here you will be able to process the complete response in `body`, which it's a properly encoded String. After you finish what you want to do with it, call `done(err, newBody)` passing `err`, in case there is one, and the `newBody` you want to send back to the client.
+* * `send(body, done)`: here you will be able to process the complete response in `body`, which it's a properly encoded String. After you finish what you want to do with it, call `done(err, newBody)` passing `err`, in case there is one, and the `newBody` you want to send back to the client.
 
 * `afterSend(oldBody, newBody)`: this method will be called after sending the response to the client, better to say, after the `done()` callback in the `send()` method gets executed. Typically you could use this method to cache something, log stats, fire a job, etc.
 
-## Technicalities
-
-Express extends Node.js functionalities, that by default:
-
-- allow setting and modifying of headers until the moment there is a write to the socket, this will submit headers.
-- when `initerceptPredicate` returns true, we will buffer the contents, preventing `.write` to be called
-- the whole buffer is presented to `send` function that can modify response headers right there, as well as return a new `body` that will be sent right away.
-- `afterSend` is optional and happens on next tick.
-- this package tries to be minimally obtrusive on the way Node or Express works, original `write` and `end` methods hijacked but then at the end.
-
+(*) Required methods.
 
 ## Similar to
 
