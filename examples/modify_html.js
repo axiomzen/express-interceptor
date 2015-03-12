@@ -7,14 +7,14 @@ var interceptor = require('../index');
 
 app.use(interceptor(function(req, res){
   return {
-    initerceptPredicate: function(){
+    isInterceptable: function(){
       return /text\/html/.test(res.get('Content-Type'));
     },
-    send: function(body, done) {
+    intercept: function(body, send) {
       var $document = cheerio.load(body || '');
       $document('body p').append(' from interceptor!');
 
-      done(null, $document.html());
+      send($document.html());
     }
   };
 }));

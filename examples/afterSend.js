@@ -7,11 +7,11 @@ var fs = require('fs');
 
 app.use(interceptor(function(req,res){
   return {
-    initerceptPredicate: function(){
+    isInterceptable: function(){
       return true;
     },
-    send: function(body, done) {
-      done(null, body);
+    intercept: function(body, send) {
+      send(body);
     },
     afterSend: function(oldBody,newBody) {
       var line = JSON.stringify({

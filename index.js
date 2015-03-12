@@ -1,8 +1,21 @@
+function validateParams(methods){
+  var ACCEPT = ['isInterceptable', 'intercept', 'afterSend'];
+  for(var k in methods){
+    if(ACCEPT.indexOf(k) < 0){
+      throw(new Error(k+' isn\'t a valid param ('+ACCEPT.join(', ')+')'));
+    }
+  }
+  if(!('isInterceptable' in methods)){
+    throw('isInterceptable is a required param (function)');
+  }
+}
+
 module.exports = function(fn) {
   var debug = require('debug')('express-interceptor');
 
   return function(req,res,next){
     var methods = fn(req,res);
+    validateParams(methods);
 
     var originalEnd = res.end;
     var originalWrite = res.write;
@@ -13,7 +26,7 @@ module.exports = function(fn) {
     function intercept(chunk, encoding){
       if(isFirstWrite){
         isFirstWrite = false;
-        isIntercepting = methods.initerceptPredicate();
+        isIntercepting = methods.isInterceptable();
       }
       debug('isIntercepting? %s', isIntercepting);
       if (isIntercepting){
@@ -50,15 +63,13 @@ module.exports = function(fn) {
       if( intercept(chunk,encoding) ){
         isIntercepting = false;
         var oldBody = chunks.join('');
-        if (typeof methods.send === 'function'){
-          debug(' methods.send is defined');
+        if (methods.intercept){
+          if(typeof methods.intercept !== 'function'){
+            throw new Error('`send` must be a function with the body to be sent as the only param');
+          }
           res.removeHeader('Content-Length');
-          // allow the user to re-write destiny
-          methods.send(oldBody, function(err,newBody) {
-            // debug(' newBody is %s',newBody);
-            if(err){
-              return cb && cb(err);
-            }
+          // allow the user to re-write response
+          methods.intercept(oldBody, function(newBody) {
             args[0] = newBody;
             originalEnd.apply(res,args);
             afterSend(oldBody,newBody);

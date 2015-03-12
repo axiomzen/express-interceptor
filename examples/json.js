@@ -5,12 +5,12 @@ var interceptor = require('../');
 
 app.use(interceptor(function(req,res){
   return {
-    initerceptPredicate: function(){
+    isInterceptable: function(){
       return true;
     },
-    send: function(body, done) {
+    intercept: function(body, done) {
       res.set('Content-Type', 'application/json');
-      done(null, JSON.stringify({json: body}));
+      done(JSON.stringify({json: body}));
     }
   };
 }));
