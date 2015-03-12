@@ -5,11 +5,11 @@ var interceptor = require('../index');
 
 app.use(interceptor(function(req, res){
   return {
-    initerceptPredicate: function(){
+    isInterceptable: function(){
       return true;
     },
-    send: function(body, done) {
-      done(null, body);
+    intercept: function(body, send) {
+      send(body);
     }
   };
 }));

@@ -5,12 +5,12 @@ var interceptor = require('../index');
 
 app.use(interceptor(function(req, res){
   return {
-    initerceptPredicate: function(){
+    isInterceptable: function(){
       return true;
     },
-    send: function(body, done) {
+    intercept: function(body, send) {
       var body2 = body.replace('</body>','<script>alert("you were intercepted!")</script></body>');
-      done(null, body2);
+      send(body2);
     }
   };
 }));
