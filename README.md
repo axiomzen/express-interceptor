@@ -2,15 +2,11 @@
 
 _A tiny Express response interceptor_
 
-Express-interceptor allows you to define a previous step before sending a response. This allows you to do anything you want with the response, such as processing, transforming, replacing, or logging it. Express-interceptor allows you to avoid calling `next()` over and over. Further more, you can avoid managing nested scopes. Using a declarative API, it’s simple to use and maintain.
-
 [![NPM](https://nodei.co/npm/express-interceptor.png)](https://nodei.co/npm/express-interceptor/)
 
 [![Build Status](https://travis-ci.org/axiomzen/express-interceptor.svg)](https://travis-ci.org/axiomzen/express-interceptor) [![Dependencies](https://david-dm.org/axiomzen/express-interceptor.png)](https://david-dm.org/axiomzen/express-interceptor.png)
 
-## Raison d’être
-
-We tested other packages that offer a similar solution, but found they are difficult to organize, to maintain logic, and to process responses before they are sent. We developed a solution to this problem that offers a declarative-structured way to organize code, and that defines custom middleware for response processing.
+Express-interceptor allows you to define a previous step before sending a response. This allows you to do anything you want with the response, such as processing, transforming, replacing, or logging it. Express-interceptor allows you to avoid calling `next()` over and over. Further more, you can avoid managing nested scopes. Using a declarative API, it’s simple to use and maintain.
 
 Some use cases include:
 
@@ -25,7 +21,7 @@ Some use cases include:
 Install the package
 
 
-    npm install --save express-interceptor
+    npm i --save express-interceptor
 
 Define your interceptor
 
@@ -90,7 +86,7 @@ See [more examples](https://github.com/axiomzen/express-interceptor/tree/master/
 
 * `isInterceptable()` (required): is a predicate function where you define a condition whether or not to intercept a response. Returning `true` buffers the request, and proceeds calling `intercept()` as well as `afterSend()`. Typically, you want to check for this condition in the `res` object in the definition of the middleware.
 
-* `intercept(body, send)` (required): Enables you to process the complete response in `body`, as a  properly encoded String. When you're finished with what you wish to do, call `send(newBody)` passing `newBody` as the content you wish to send back to the client.
+* `intercept(body, send)` (required): Parse the body as an encoded string. After processing the body, call `send(newBody)` with the content to be sent back to the client.
 
 * `afterSend(oldBody, newBody)`: This method will be called after sending the response to the client – after the `done()` callback in the `send()` method is executed. This method would typically be used to cache something, log stats, fire a job, among other things.
 
@@ -98,14 +94,14 @@ See [more examples](https://github.com/axiomzen/express-interceptor/tree/master/
 ## Similar to
 
 - [express-hijackresponse](https://github.com/papandreou/express-hijackresponse)
-Different API, using callbacks with no top down structure.
+Different API, using callbacks with no top down structure, more obtrusive to HTTP internals.
 
 - [tamper](https://www.npmjs.com/package/tamper)
-Similar functionality but different internals.
+Similar functionality but different internals and API.
 
 ## Words of advice
 
-If your `intercept` method make calls to a database, or needs to make hundreds of transformations to the original response, you should take in account at all time that this is a middleware, so it will be executed in every response, the process you define there it will delay the sending of the resulting response to the client. You should define your `isInterceptable` method carefully, checking the type of the response, or even the route that was fired by the request, also you could use a cache to get faster responses.
+If your `intercept` method make calls to a database, or needs to make expensive transformations to the original response, you should take in account the time that will add to the response. You should define your `isInterceptable` method carefully, checking the type of the response, or even the route that was fired by the request, also you may consider implementing a cache strategy to get faster responses.
 
 If you face any issue, don't hesitate to submit it [here](https://github.com/axiomzen/express-interceptor/issues).
 
