@@ -91,6 +91,11 @@ See [more examples](https://github.com/axiomzen/express-interceptor/tree/master/
 
 * `afterSend(oldBody, newBody)`: This method will be called after sending the response to the client – after the `done()` callback in the `send()` method is executed. This method would typically be used to cache something, log stats, fire a job, among other things.
 
+## Who is using it?
+
+* [express-jsxtransform](https://github.com/gustavnikolaj/express-jsxtransform)
+* [express-autoprefixer](https://github.com/gustavnikolaj/express-autoprefixer)
+* [express-compiless](https://github.com/papandreou/express-compiless)
 
 ## Similar to
 
