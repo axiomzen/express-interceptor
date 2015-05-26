@@ -1,8 +1,14 @@
-var request = require('supertest');
-var expect  = require('chai').expect;
 var fs      = require('fs');
-
 var app = require('../examples/afterSend');
+var expect = require('unexpected')
+    .clone()
+    .installPlugin(require('unexpected-express'))
+    .addAssertion('to yield response', function (expect, subject, value) {
+        return expect(app, 'to yield exchange', {
+            request: subject,
+            response: value
+        });
+    });
 
 function cleanupLog(done){
   fs.exists('body.log', function (exists) {
@@ -18,18 +24,12 @@ describe('Using the after() method', function() {
 
   before(cleanupLog);
 
-  it('should intercept the generated .html and respond with the same .html', function(done) {
-    request(app)
-      .get('/README.md')
-      .expect(200)
-      .end(done);
+  it('should intercept the generated .html and respond with the same .html', function() {
+    return expect('/README.md', 'to yield response', 200);
   });
 
-  it('verify log file exist', function(done) {
-    fs.exists('body.log', function(exist) {
-      expect(exist).to.equal(true);
-      done();
-    });
+  it('verify log file exist', function() {
+    return expect(fs.existsSync('body.log'), 'to be true');
   });
 
   after(cleanupLog);
