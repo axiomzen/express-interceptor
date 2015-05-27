@@ -45,10 +45,7 @@ describe('Mirroring the response', function() {
   });
 
   it('should intercept 404 and respond with the same 404', function() {
-    return expect('/not-here.json', 'to yield response', {
-      statusCode: 404,
-      // body: 'Cannot GET /not-here.json'
-    });
+    return expect('/not-here.json', 'to yield response', 404);
   });
 
 });
