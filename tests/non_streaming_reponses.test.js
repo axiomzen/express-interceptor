@@ -11,7 +11,12 @@ var app = require('express')()
         }
     }))
     .get('/hello', function (req, res) {
+        res.setHeader('Content-Type', 'text/plain');
         res.status(200).send('world');
+    })
+    .get('/hello2', function (req, res) {
+        res.setHeader('Content-Type', 'text/plain');
+        res.status(200).end('world');
     });
 
 var expect = require('unexpected')
@@ -27,5 +32,8 @@ var expect = require('unexpected')
 describe('Non streaming responses', function () {
     it('should not be swallowed when sent by .send', function () {
         return expect('/hello', 'to yield response', 'world');
+    });
+    it('should not be swallowed when sent by .end', function () {
+        return expect('/hello2', 'to yield response', 'world');
     });
 });
