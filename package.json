@@ -41,12 +41,15 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "chai": "^2.3.0",
     "cheerio": "^0.19.0",
     "express": "^4.12.4",
     "jade": "^1.10.0",
+    "magicpen-media": "1.5.0",
+    "messy": "6.5.0",
     "mocha": "^2.2.5",
-    "supertest": "^1.0.1"
+    "unexpected": "9.2.1",
+    "unexpected-express": "7.3.0",
+    "unexpected-messy": "4.6.0"
   },
   "dependencies": {
     "debug": "^2.2.0"
