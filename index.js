@@ -32,7 +32,7 @@ module.exports = function(fn) {
       if (isIntercepting){
         // collect all the parts of a response
         if(chunk){
-          chunks.push(chunk.toString(typeof encoding === 'string' ? encoding : 'utf-8'));
+          chunks.push(chunk);
         }
         if(typeof cb === 'function'){
           cb();
@@ -62,7 +62,7 @@ module.exports = function(fn) {
       var args = Array.prototype.slice.call(arguments);
       if( intercept(chunk,encoding) ){
         isIntercepting = false;
-        var oldBody = chunks.join('');
+        var oldBody = Buffer.concat(chunks).toString('utf-8');
         if (methods.intercept){
           if(typeof methods.intercept !== 'function'){
             throw new Error('`send` must be a function with the body to be sent as the only param');
