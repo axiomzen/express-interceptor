@@ -29,7 +29,9 @@ describe('Using the after() method', function() {
   });
 
   it('verify log file exist', function() {
-    return expect(fs.existsSync('body.log'), 'to be true');
+      return expect(function (cb) {
+          fs.open('body.log', 'r', cb);
+      }, 'to call the callback without error');
   });
 
   after(cleanupLog);
