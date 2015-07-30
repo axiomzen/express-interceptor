@@ -81,7 +81,7 @@ Into:
 </html>
 ```
 
-See [more examples](https://github.com/axiomzen/express-interceptor/tree/master/examples).
+See [more examples](https://github.com/axiomzen/express-interceptor/tree/master/examples). Also, you can debug express-interceptor actions using [debug](https://github.com/visionmedia/debug) env variable `DEBUG=express-interceptor`.
 
 ## API
 
