@@ -1,6 +1,6 @@
 {
   "name": "express-interceptor",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A tiny interceptor for Express responses",
   "main": "index.js",
   "directories": {
