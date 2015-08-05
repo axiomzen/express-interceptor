@@ -111,6 +111,10 @@ If your `intercept` method make calls to a database, or needs to make expensive 
 
 If you face any issue, don't hesitate to submit it [here](https://github.com/axiomzen/express-interceptor/issues).
 
+## Contributing
+
+Please check [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ## Author
 
 * [AxiomZen](https://www.axiomzen.co/).
