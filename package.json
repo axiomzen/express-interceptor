@@ -18,7 +18,8 @@
     "response",
     "hack",
     "interceptor",
-    "hijack"
+    "hijack",
+    "hijackresponse"
   ],
   "contributors": [
     {
@@ -28,7 +29,7 @@
     },
     {
       "name": "Raul Pino",
-      "email": "pinox101@gmail.com",
+      "email": "ipinoraul@gmail.com",
       "url": "https://github.com/p1nox"
     }
   ],
