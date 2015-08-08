@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha -R spec --recursive"
+    "test": "mocha"
   },
   "author": "AxiomZen (https://axiomzen.co)",
   "keywords": [
