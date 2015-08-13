@@ -115,6 +115,8 @@ If you face any issue, don't hesitate to submit it [here](https://github.com/axi
 
 Please check [CONTRIBUTING.md](CONTRIBUTING.md).
 
+This project adheres to the [Open Code of Conduct](http://todogroup.org/opencodeofconduct/#express-interceptor/ipinoraul@gmail.com). By participating, you are expected to honor this code.
+
 ## Author
 
 * [AxiomZen](https://www.axiomzen.co/).
