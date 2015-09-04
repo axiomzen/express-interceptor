@@ -19,9 +19,11 @@ module.exports = function(fn) {
 
     var originalEnd = res.end;
     var originalWrite = res.write;
+    var originalWriteHead = res.writeHead;
     var chunks = [];
     var isIntercepting;
     var isFirstWrite = true;
+    var endCalled = false;
 
     function intercept(chunk, encoding){
       if(isFirstWrite){
@@ -41,6 +43,31 @@ module.exports = function(fn) {
       return isIntercepting;
     }
 
+    res.writeHead = function (statusCode, statusMessage, headers) {
+      if (!methods.isInterceptable() || endCalled) {
+        return originalWriteHead.apply(res, arguments);
+      } else {
+        if (!headers && statusMessage && typeof statusMessage === 'object') {
+          headers = statusMessage;
+          statusMessage = null;
+        }
+
+        if (statusMessage) {
+            debug('the statusMessage argument is not supported by express-interceptor');
+        }
+
+        if (statusCode) {
+          res.status(statusCode)
+        }
+
+        if (headers) {
+          Object.keys(headers).forEach(function (headerName) {
+            res.set(headerName, headers[headerName]);
+          });
+        }
+      }
+    };
+
     res.write = function(chunk, encoding, cb) {
       debug('write called');
       if( !intercept(chunk,encoding) ){
@@ -59,6 +86,7 @@ module.exports = function(fn) {
 
     res.end = function(chunk, encoding, cb) {
       debug('end called');
+      endCalled = true;
       var args = Array.prototype.slice.call(arguments);
       if( intercept(chunk,encoding) ){
         isIntercepting = false;
