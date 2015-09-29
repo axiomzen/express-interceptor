@@ -18,4 +18,3 @@ app.use(interceptor(function(req,res){
 app.use(express.static(__dirname + '/../'));
 
 module.exports = app;
-
