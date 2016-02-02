@@ -23,7 +23,7 @@ module.exports = function(fn) {
     var isIntercepting;
     var isFirstWrite = true;
 
-    function intercept(chunk, encoding){
+    function intercept(rawChunk, encoding){
       if(isFirstWrite){
         isFirstWrite = false;
         isIntercepting = methods.isInterceptable();
@@ -31,7 +31,15 @@ module.exports = function(fn) {
       debug('isIntercepting? %s', isIntercepting);
       if (isIntercepting){
         // collect all the parts of a response
-        if(chunk){
+        if(rawChunk){
+          var chunk = rawChunk
+          if (rawChunk !== null && !Buffer.isBuffer(chunk) && encoding !== 'buffer') {
+            if (!encoding) {
+              chunk = new Buffer(rawChunk)
+            } else {
+              chunk = new Buffer(rawChunk, encoding)
+            }
+          }
           chunks.push(chunk);
         }
         if(typeof cb === 'function'){
