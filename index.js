@@ -1,21 +1,10 @@
-function validateParams(methods){
-  var ACCEPT = ['isInterceptable', 'intercept', 'afterSend'];
-  for(var k in methods){
-    if(ACCEPT.indexOf(k) < 0){
-      throw(new Error(k+' isn\'t a valid param ('+ACCEPT.join(', ')+')'));
-    }
-  }
-  if(!('isInterceptable' in methods)){
-    throw('isInterceptable is a required param (function)');
-  }
-}
 
 module.exports = function(fn) {
   var debug = require('debug')('express-interceptor');
 
   return function(req,res,next){
     var methods = fn(req,res);
-    validateParams(methods);
+    _validateParams(methods);
 
     var originalEnd = res.end;
     var originalWrite = res.write;
@@ -94,3 +83,16 @@ module.exports = function(fn) {
     next();
   };
 };
+
+var VALID_PARAMS = ['isInterceptable', 'intercept', 'afterSend'];
+function _validateParams(methods){
+  for(var k in methods){
+    if (VALID_PARAMS.indexOf(k) < 0){
+      throw(new Error(k+' isn\'t a valid param (' + VALID_PARAMS.join(', ') + ')'));
+    }
+  }
+
+  if (!('isInterceptable' in methods)){
+    throw('isInterceptable is a required param (function)');
+  }
+}
