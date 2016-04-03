@@ -93,16 +93,20 @@ See [more examples](https://github.com/axiomzen/express-interceptor/tree/master/
 
 ## Who is using it?
 
-* [express-jsxtransform](https://github.com/gustavnikolaj/express-jsxtransform)
-* [express-autoprefixer](https://github.com/gustavnikolaj/express-autoprefixer)
-* [express-compiless](https://github.com/papandreou/express-compiless)
+* [node-stylus-require](https://www.npmjs.com/package/node-stylus-require)
+* [express-html-minify](https://www.npmjs.com/package/express-html-minify)
+* [express-jare](https://www.npmjs.com/package/express-jare)
+* [hospitalrun-server-routes](https://www.npmjs.com/package/hospitalrun-server-routes)
 
 ## Similar to
 
 - [express-hijackresponse](https://github.com/papandreou/express-hijackresponse)
 Different API, using callbacks with no top down structure, more obtrusive to HTTP internals.
 
-- [tamper](https://www.npmjs.com/package/tamper)
+- [hijackresponse](https://github.com/gustavnikolaj/hijackresponse)
+Attempting to solve same problems than `express-hijackresponse`. Different API using pipes, recommended if you need more control over responses.
+
+- [tamper](https://github.com/fgnass/tamper)
 Similar functionality but different internals and API.
 
 ## Words of advice
