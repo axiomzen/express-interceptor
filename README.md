@@ -100,8 +100,7 @@ See [more examples](https://github.com/axiomzen/express-interceptor/tree/master/
 
 ## Similar to
 
-- [express-hijackresponse](https://github.com/papandreou/express-hijackresponse)
-Different API, using callbacks with no top down structure, more obtrusive to HTTP internals.
+- [express-hijackresponse](https://github.com/papandreou/express-hijackresponse) (deprecated) Different API, using callbacks with no top down structure, more obtrusive to HTTP internals.
 
 - [hijackresponse](https://github.com/gustavnikolaj/hijackresponse)
 Attempting to solve same problems than `express-hijackresponse`. Different API using pipes, recommended if you have problems with [streaming](https://github.com/axiomzen/express-interceptor/issues/15) or if you need more control over responses.
