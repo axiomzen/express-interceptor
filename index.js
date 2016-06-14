@@ -9,6 +9,10 @@ module.exports = function(fn) {
 
     var originalEnd = res.end;
     var originalWrite = res.write;
+    var invokeOriginalEnd = function(){
+      this.write = originalWrite;
+      originalEnd.apply(this, arguments);
+    };
     var chunks = [];
     var isIntercepting;
     var isFirstWrite = true;
@@ -92,21 +96,18 @@ module.exports = function(fn) {
             methods.intercept(oldBody, function(newBody) {
               args[0] = newBody;
 
-              res.write = originalWrite;
-              originalEnd.apply(res,args);
+              invokeOriginalEnd.apply(res,args);
               afterSend(oldBody,newBody);
             });
           } else {
             debug(' methods.send isnt defined');
             afterSend(oldBody, oldBody);
 
-            res.write = originalWrite;
-            originalEnd.apply(res, args);
+            invokeOriginalEnd.apply(res, args);
           }
         } else {
 
-          res.write = originalWrite;
-          originalEnd.apply(res, args);
+          invokeOriginalEnd.apply(res, args);
         }
       });
     };
