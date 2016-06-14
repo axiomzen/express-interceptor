@@ -11,40 +11,50 @@ module.exports = function(fn) {
     var chunks = [];
     var isIntercepting;
     var isFirstWrite = true;
+    var isInterceptablePromise;
 
     function intercept(rawChunk, encoding) {
       if (isFirstWrite) {
         isFirstWrite = false;
-        isIntercepting = methods.isInterceptable();
+
+        isInterceptablePromise = Promise.resolve(methods.isInterceptable())
+        .then(function(bool){
+          isIntercepting = bool;
+          resolve(bool);
+        });
       }
 
-      debug('isIntercepting? %s', isIntercepting);
-      if (isIntercepting) {
-        // collect all the parts of a response
-        if (rawChunk) {
-          var chunk = rawChunk
-          if (rawChunk !== null && !Buffer.isBuffer(chunk) && encoding !== 'buffer') {
-            if (!encoding) {
-              chunk = new Buffer(rawChunk)
-            } else {
-              chunk = new Buffer(rawChunk, encoding)
+      // isFirstWrite should call first, so isInterceptablePromise will not by null
+      isInterceptablePromise.then(function(bool){
+        debug('isIntercepting? %s', isIntercepting);
+        if (isIntercepting) {
+          // collect all the parts of a response
+          if (rawChunk) {
+            var chunk = rawChunk
+            if (rawChunk !== null && !Buffer.isBuffer(chunk) && encoding !== 'buffer') {
+              if (!encoding) {
+                chunk = new Buffer(rawChunk)
+              } else {
+                chunk = new Buffer(rawChunk, encoding)
+              }
             }
+            chunks.push(chunk);
           }
-          chunks.push(chunk);
+          if (typeof cb === 'function') {
+            cb();
+          }
         }
-        if (typeof cb === 'function') {
-          cb();
-        }
-      }
+      });
 
-      return isIntercepting;
+      return isInterceptablePromise;
     }
 
     res.write = function(chunk, encoding, cb) {
       debug('write called');
-      if(!intercept(chunk,encoding)) {
-        originalWrite.apply(res, arguments);
-      }
+
+      intercept(chunk,encoding).then(function(bool){
+        !bool && originalWrite.apply(res, arguments);
+      });
     };
 
     function afterSend(oldBody, newBody) {
