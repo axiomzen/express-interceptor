@@ -21,6 +21,11 @@ module.exports = function(fn) {
         .then(function(bool){
           isIntercepting = bool;
           return;
+        })
+        .catch(function(){
+          isIntercepting = false;
+          debug('function isInterceptable throws exception', arguments);
+          return;
         });
       }
 
