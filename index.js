@@ -20,12 +20,12 @@ module.exports = function(fn) {
         isInterceptablePromise = Promise.resolve(methods.isInterceptable())
         .then(function(bool){
           isIntercepting = bool;
-          resolve(bool);
+          return;
         });
       }
 
       // isFirstWrite should call first, so isInterceptablePromise will not by null
-      isInterceptablePromise.then(function(bool){
+      isInterceptablePromise.then(function(){
         debug('isIntercepting? %s', isIntercepting);
         if (isIntercepting) {
           // collect all the parts of a response
@@ -52,8 +52,8 @@ module.exports = function(fn) {
     res.write = function(chunk, encoding, cb) {
       debug('write called');
 
-      intercept(chunk,encoding).then(function(bool){
-        !bool && originalWrite.apply(res, arguments);
+      intercept(chunk,encoding).then(function(){
+        !isIntercepting && originalWrite.apply(res, arguments);
       });
     };
 
@@ -70,32 +70,38 @@ module.exports = function(fn) {
       debug('end called');
       var args = Array.prototype.slice.call(arguments);
 
-      if (intercept(chunk,encoding)) {
-        isIntercepting = false;
-        var oldBody = Buffer.concat(chunks);
+      intercept(chunk,encoding).then(function(){
+        if (isIntercepting) {
+          isIntercepting = false;
+          var oldBody = Buffer.concat(chunks);
 
-        if (methods.intercept) {
-          if (typeof methods.intercept !== 'function') {
-            throw new Error('`send` must be a function with the body to be sent as the only param');
+          if (methods.intercept) {
+            if (typeof methods.intercept !== 'function') {
+              throw new Error('`send` must be a function with the body to be sent as the only param');
+            }
+
+            res.removeHeader('Content-Length');
+            // allow the user to re-write response
+            methods.intercept(oldBody, function(newBody) {
+              args[0] = newBody;
+              console.log(8888888,oldBody.length, newBody.length);
+
+              try {
+              originalEnd.apply(res,args);
+              afterSend(oldBody,newBody);
+              }catch(err){
+              console.log(err);
+              }
+            });
+          } else {
+            debug(' methods.send isnt defined');
+            afterSend(oldBody, oldBody);
+            originalEnd.apply(res, args);
           }
-
-          res.removeHeader('Content-Length');
-          // allow the user to re-write response
-          methods.intercept(oldBody, function(newBody) {
-            args[0] = newBody;
-            originalEnd.apply(res,args);
-            afterSend(oldBody,newBody);
-          });
         } else {
-          debug(' methods.send isnt defined');
-          afterSend(oldBody, oldBody);
           originalEnd.apply(res, args);
         }
-
-      } else {
-        originalEnd.apply(res, args);
-      }
-
+      });
     };
 
     next();
