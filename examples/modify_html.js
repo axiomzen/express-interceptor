@@ -11,7 +11,7 @@ app.use(interceptor(function(req, res){
       return /text\/html/.test(res.get('Content-Type'));
     },
     intercept: function(body, send) {
-      var $document = cheerio.load(body.toString('utf8') || '');
+      var $document = cheerio.load(body.toString('utf-8') || '');
       $document('body p').append(' from interceptor!');
 
       send($document.html());

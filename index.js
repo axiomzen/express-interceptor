@@ -57,8 +57,9 @@ module.exports = function(fn) {
     res.write = function(chunk, encoding, cb) {
       debug('write called');
 
+      var args = arguments;
       intercept(chunk,encoding).then(function(){
-        !isIntercepting && originalWrite.apply(res, arguments);
+        !isIntercepting && originalWrite.apply(res, args);
       });
     };
 
