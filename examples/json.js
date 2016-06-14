@@ -10,7 +10,7 @@ app.use(interceptor(function(req,res){
     },
     intercept: function(body, done) {
       res.set('Content-Type', 'application/json');
-      done(JSON.stringify({json: body}));
+      done(JSON.stringify({json: body.toString('utf8')}));
     }
   };
 }));
