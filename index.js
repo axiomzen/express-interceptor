@@ -84,21 +84,21 @@ module.exports = function(fn) {
             // allow the user to re-write response
             methods.intercept(oldBody, function(newBody) {
               args[0] = newBody;
-              console.log(8888888,oldBody.length, newBody.length);
 
-              try {
+              res.write = originalWrite;
               originalEnd.apply(res,args);
               afterSend(oldBody,newBody);
-              }catch(err){
-              console.log(err);
-              }
             });
           } else {
             debug(' methods.send isnt defined');
             afterSend(oldBody, oldBody);
+
+            res.write = originalWrite;
             originalEnd.apply(res, args);
           }
         } else {
+
+          res.write = originalWrite;
           originalEnd.apply(res, args);
         }
       });
