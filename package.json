@@ -55,6 +55,7 @@
     "unexpected-express": "7.7.0"
   },
   "dependencies": {
-    "debug": "^2.2.0"
+    "debug": "^2.2.0",
+    "es6-promise": "^3.2.1"
   }
 }

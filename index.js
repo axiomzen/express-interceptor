@@ -1,3 +1,4 @@
+require('es6-promise').polyfill();
 
 module.exports = function(fn) {
   var debug = require('debug')('express-interceptor');
