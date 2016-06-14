@@ -1,3 +1,12 @@
+## Changes of this fork
+* Break change, Remove ```Buffer.toString('utf8')``` to support intercepting binary response. If you want to get the text response, do ```body.toString()``` on your intercept function.
+* Support promise on ```isInterceptable```
+
+### Follows
+* fix the failed tests
+
+-----
+
 # express-interceptor
 
 _A tiny Express response interceptor_
