@@ -1,12 +1,42 @@
-[![Build Status](https://travis-ci.org/fuminchao/express-interceptor.svg)](https://travis-ci.org/fuminchao/express-interceptor)
 
 ### Changes of this fork
-* Break change, Remove ```Buffer.toString('utf8')``` to support intercepting binary response. If you want to get the text response, do ```body.toString()``` on your intercept function.
+* Break change, Remove ```Buffer.toString('utf-8')``` to support intercepting binary response. If you want to get the text response, do ```body.toString()``` on your intercept function.
 * Support promise on ```isInterceptable```
 * Use [es6-promise](https://www.npmjs.com/package/es6-promise "es6-promise") to support Node v0.10
 
 ### Follows
-* fix the failed tests
+* Done - ~~fix the failed tests~~ [![Build Status](https://travis-ci.org/fuminchao/express-interceptor.svg)](https://travis-ci.org/fuminchao/express-interceptor)
+
+
+### Updated usage
+```
+express().use(require('express-interceptor')(function(req, res){
+  return {
+    isInterceptable: function(){
+      if (/^text\/html/.test(req.originalUrl)) {
+
+        // Can return promise
+        return new Promise(function(resolve){
+          setTimeout(function(){
+            resolve(true);
+          }, 1000);
+        });
+      } else {
+
+        // Or return boolean directly
+        return false;
+      }
+    },
+    intercept: function(body, send) {
+
+      // Call .toString explicitly
+      console.log(body.toString('utf-8'));
+
+      send(body);
+    }
+  };
+})
+```
 
 -----
 
