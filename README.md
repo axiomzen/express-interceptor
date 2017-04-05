@@ -21,7 +21,6 @@ Some use cases include:
 
 Install the package
 
-
     npm i --save express-interceptor
 
 Define your interceptor
@@ -87,7 +86,7 @@ See [more examples](https://github.com/axiomzen/express-interceptor/tree/master/
 
 * `isInterceptable()` (required): is a predicate function where you define a condition whether or not to intercept a response. Returning `true` buffers the request, and proceeds calling `intercept()` as well as `afterSend()`. Typically, you want to check for this condition in the `res` object in the definition of the middleware.
 
-* `intercept(body, send)` (required): Parse the body as an encoded string. After processing the body, call `send(newBody)` with the content to be sent back to the client.
+* `intercept(body, send)`: Parse the body as an encoded string. After processing the body, call `send(newBody)` with the content to be sent back to the client.
 
 * `afterSend(oldBody, newBody)`: This method will be called after sending the response to the client – after the `done()` callback in the `send()` method is executed. This method would typically be used to cache something, log stats, fire a job, among other things.
 
