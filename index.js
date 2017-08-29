@@ -77,6 +77,18 @@ module.exports = function(fn) {
       }
     }
 
+    function isTextContentType(contentType) {
+      return [
+        /text\//,
+        /application\/json/,
+        /application\/x\-javascript/,
+        /application\/html/,
+        /application\/xml/,
+      ].some(function(regx){
+        return regx.test(contentType);
+      });
+    }
+
     res.end = function(chunk, encoding, cb) {
       debug('end called');
       var args = Array.prototype.slice.call(arguments);
@@ -92,6 +104,11 @@ module.exports = function(fn) {
             }
 
             res.removeHeader('Content-Length');
+
+            if ( isTextContentType(res.get('content-type')) ) {
+              oldBody = oldBody.toString('utf-8');
+            }
+
             // allow the user to re-write response
             methods.intercept(oldBody, function(newBody) {
               args[0] = newBody;

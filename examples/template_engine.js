@@ -9,7 +9,7 @@ app.use(interceptor(function(req, res){
       return true;
     },
     intercept: function(body, send) {
-      var body2 = body.toString('utf-8').replace('</body>','<script>alert("you were intercepted!")</script></body>');
+      var body2 = body.replace('</body>','<script>alert("you were intercepted!")</script></body>');
       send(body2);
     }
   };
