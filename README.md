@@ -1,6 +1,6 @@
 
 ### Changes of this fork
-* Break change, Remove ```Buffer.toString('utf-8')``` to support intercepting binary response. If you want to get the text response, do ```body.toString()``` on your intercept function.
+* Support intercepting binary response. If the response is not in text, ( indicated by Content-Type ), The body passed by ```intercept( body )``` will be a Buffer instance.
 * Support promise on ```isInterceptable```
 * Use [es6-promise](https://www.npmjs.com/package/es6-promise "es6-promise") to support Node v0.10
 
