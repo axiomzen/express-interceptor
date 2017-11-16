@@ -99,6 +99,8 @@ See [more examples](https://github.com/axiomzen/express-interceptor/tree/master/
 
 ## Similar to
 
+- [@fuminchao's fork](https://github.com/fuminchao/express-interceptor) - Makes internal use of a Promise and so it can also handle non-text returns gracefully.
+
 - [express-hijackresponse](https://github.com/papandreou/express-hijackresponse) (deprecated) Different API, using callbacks with no top down structure, more obtrusive to HTTP internals.
 
 - [hijackresponse](https://github.com/gustavnikolaj/hijackresponse)
