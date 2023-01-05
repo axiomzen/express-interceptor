@@ -32,9 +32,6 @@ module.exports = function(fn) {
           }
           chunks.push(chunk);
         }
-        if (typeof cb === 'function') {
-          cb();
-        }
       }
 
       return isIntercepting;
