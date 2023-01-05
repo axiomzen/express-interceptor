@@ -69,7 +69,6 @@ module.exports = function(fn) {
             throw new Error('`send` must be a function with the body to be sent as the only param');
           }
 
-          res.removeHeader('Content-Length');
           // allow the user to re-write response
           methods.intercept(oldBody, function(newBody) {
             args[0] = newBody;
